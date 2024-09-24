@@ -1,0 +1,12 @@
+.layout {
+    width: 100%;
+    height: 100%;
+}
+
+.layout .btn-go-top {
+    position: fixed;
+    right: 0;
+    bottom: 24px;
+    margin-right: 5rem;
+    background-color: #C20324;
+}

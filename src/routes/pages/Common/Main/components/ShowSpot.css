@@ -1,0 +1,15 @@
+.show-spot {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-spot div.spot-1 {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    background-color: #b9eaff;
+}

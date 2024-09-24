@@ -2,85 +2,95 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import MainPresenter from "./MainPresenter";
 
-/* 
-    하나의 페이지를 Container와 Presenter로 분리하고 각 역할은 아래와 같다
+import Topcit from '../../../../assets/topcit.png';
+import DLearning from '../../../../assets/dlearning.jpg';
 
-    * Container: 백엔드에서 데이터를 불러와 state 관리, 로직을 담당하는 함수 선언
-    * Presenter: 불러온 데이터를 토대로 페이지에 출력, 함수 사용
-*/
 const MainContainer = () => {
     // 페이지 이동을 위한 외부 함수
     const navigate = useNavigate();
+    const [programs, setPrograms] = useState([
+        {
+            img: Topcit,
+            status: '모집중',
+            title: '2024-2학기 TOPCIT 평가 지원 프로그램',
+            operating_start_hours: '24/10/12(토)',
+            operating_end_hours: '24/10/12(토)',
+            application_period_start: '24/09/02(월)',
+            application_period_end: '24/09/18(수)',
+            manager_department: '컴퓨터공학과',
+            manager_name: '김민준',
+            manager_phone: '320-1749',
+            current_accept: 126,
+            max_accept: 0,
+        },
+        {
+            img: DLearning,
+            status: '모집중',
+            title: '2024-2학기 디러닝쿱(D-Learning Co-op)',
+            operating_start_hours: '24/10/16(수)',
+            operating_end_hours: '24/12/16(월)',
+            application_period_start: '24/09/02(월)',
+            application_period_end: '24/09/18(수)',
+            manager_department: '교수학습개발센터',
+            manager_name: '정예빈',
+            manager_phone: '320-4871',
+            current_accept: 2,
+            max_accept: 0,
+        },
+    ])
 
-    const [text, setText] = useState('');
-    const [isSignUp, setIsSignUp] = useState(null);
-    const [isSignIn, setIsSignIn] = useState(null);
+    // const buttonClick = async () => {
+    //     const result = await fetch('http://localhost:3333/test', {
+    //         method: 'get',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=UTF-8',
+    //             Accept: 'application/json',
+    //             mode: 'no-cors',
+    //             'Access-Control-Allow-Origin': '*',
+    //         }
+    //     });
 
-    const buttonClick = async () => {
-        const result = await fetch('http://localhost:3333/test', {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                Accept: 'application/json',
-                mode: 'no-cors',
-                'Access-Control-Allow-Origin': '*',
-            }
-        });
+    //     const data = await result.json();
+    //     setText(data.data);
+    // }
 
-        const data = await result.json();
-        setText(data.data);
-    }
+    // const SignUp = async () => {
+    //     const result = await fetch('http://localhost:3333/user/signup', {
+    //         method: 'post',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=UTF-8',
+    //             Accept: 'application/json',
+    //             mode: 'no-cors',
+    //             'Access-Control-Allow-Origin': '*',
+    //         }
+    //     });
 
-    const SignUp = async () => {
-        const result = await fetch('http://localhost:3333/user/signup', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                Accept: 'application/json',
-                mode: 'no-cors',
-                'Access-Control-Allow-Origin': '*',
-            }
-        });
+    //     const data = await result.json();
+    //     console.log(data)
+    //     setIsSignUp(data)
+    // }
 
-        const data = await result.json();
-        console.log(data)
-        setIsSignUp(data)
-    }
+    // const SignIn = async () => {
+    //     const result = await fetch('http://localhost:3333/user/signin', {
+    //         method: 'get',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=UTF-8',
+    //             Accept: 'application/json',
+    //             mode: 'no-cors',
+    //             'Access-Control-Allow-Origin': '*',
+    //         }
+    //     });
 
-    const SignIn = async () => {
-        const result = await fetch('http://localhost:3333/user/signin', {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                Accept: 'application/json',
-                mode: 'no-cors',
-                'Access-Control-Allow-Origin': '*',
-            }
-        });
+    //     const data = await result.json();
+    //     console.log(data)
+    //     setIsSignIn(data)
+    // }
 
-        const data = await result.json();
-        console.log(data)
-        setIsSignIn(data)
-    }
-
-    /*
-        Container는 Presenter만 반환한다
-
-        * Container에서 선언한 함수를 Presenter에게 props로 넘겨주어 사용한다.
-    */
     return (
         <MainPresenter
-            text={text}
-
-            buttonClick={buttonClick}
-
-            SignUp={SignUp}
-            isSignUp={isSignUp}
-
-            SignIn={SignIn}
-            isSignIn={isSignIn}
-
             navigate={navigate}
+
+            programs={programs}
         />
     )
 }

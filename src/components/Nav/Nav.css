@@ -1,0 +1,36 @@
+nav {
+    width: 100%;
+    height: 70px;
+    background-color: #C20324;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+nav ul {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+    color: white;
+    font-weight: 500;
+}
+
+nav .btn-sitemap {
+    background-color: #8F0019;
+    margin-left: 1rem;
+    padding: 1.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
