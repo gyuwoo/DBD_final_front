@@ -10,11 +10,16 @@ import './Layout.css';
 
 const Layout = ({
     children,
+    user,
+    signOut,
 }) => {
 
     return (
         <div className="layout">
-            <Header />
+            <Header
+                user={user}
+                signOut={signOut}
+            />
             <Nav />
             <Article children={children} />
             <Footer />

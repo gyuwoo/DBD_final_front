@@ -8,11 +8,17 @@ import { ProgramList } from "./components/Program";
 import './Main.css';
 
 const MainPresenter = ({
-    programs
+    programs,
+
+    user,
+    signOut,
 }) => {
 
     return (
-        <Layout>
+        <Layout
+            user={user}
+            signOut={signOut}
+        >
             <ShowSpot />
             <div className="content">
                 <ProgramList

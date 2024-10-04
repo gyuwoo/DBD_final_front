@@ -8,6 +8,7 @@ import DLearning from '../../../../assets/dlearning.jpg';
 const MainContainer = () => {
     // 페이지 이동을 위한 외부 함수
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
     const [programs, setPrograms] = useState([
         {
             img: Topcit,
@@ -39,58 +40,54 @@ const MainContainer = () => {
         },
     ])
 
-    // const buttonClick = async () => {
-    //     const result = await fetch('http://localhost:3333/test', {
-    //         method: 'get',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8',
-    //             Accept: 'application/json',
-    //             mode: 'no-cors',
-    //             'Access-Control-Allow-Origin': '*',
-    //         }
-    //     });
+    const signOut = async () => {
+        const ok = window.confirm('정말 로그아웃 하시겠습니까?');
+        if (!ok) return;
 
-    //     const data = await result.json();
-    //     setText(data.data);
-    // }
+        const result = await fetch('http://localhost:3333/user/signout', {
+            method: 'post',
+            credentials: 'include',
+        });
 
-    // const SignUp = async () => {
-    //     const result = await fetch('http://localhost:3333/user/signup', {
-    //         method: 'post',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8',
-    //             Accept: 'application/json',
-    //             mode: 'no-cors',
-    //             'Access-Control-Allow-Origin': '*',
-    //         }
-    //     });
+        window.location.reload();
+    }
 
-    //     const data = await result.json();
-    //     console.log(data)
-    //     setIsSignUp(data)
-    // }
+    useEffect(() => {
+        (
+            async () => {
+                console.log('test')
+                try {
+                    const result = await fetch('http://localhost:3333/user/session', {
+                        method: 'post',
+                        credentials: 'include',
+                    });
 
-    // const SignIn = async () => {
-    //     const result = await fetch('http://localhost:3333/user/signin', {
-    //         method: 'get',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8',
-    //             Accept: 'application/json',
-    //             mode: 'no-cors',
-    //             'Access-Control-Allow-Origin': '*',
-    //         }
-    //     });
+                    if (!result) {
+                        throw new Error(`server error`);
+                    }
 
-    //     const data = await result.json();
-    //     console.log(data)
-    //     setIsSignIn(data)
-    // }
+                    const data = await result.json();
+
+                    if (data.status === 404) {
+                        throw new Error(`no has user in session`);
+                    }
+
+                    setUser(data.data);
+                } catch (e) {
+                    console.error(e.message);
+                }
+            }
+        )()
+    }, []);
 
     return (
         <MainPresenter
             navigate={navigate}
 
             programs={programs}
+
+            user={user}
+            signOut={signOut}
         />
     )
 }

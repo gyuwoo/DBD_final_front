@@ -52,3 +52,32 @@ header .signin-list li::after {
 header .signin-list li:last-child:after {
     display: none;
 }
+
+
+header .student-info-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-right: 5rem;
+    margin-bottom: 1rem;
+}
+
+header .student-info-list .student-info {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+header .student-info-list .student-info:first-child::after {
+    content: '|';
+    color: lightgray;
+    margin-left: 0.5rem;
+}
+
+header .student-info-list .signout-button {
+    cursor: pointer;
+}
