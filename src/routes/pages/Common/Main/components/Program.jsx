@@ -6,6 +6,7 @@ export const ProgramList = ({
 }) => {
 
     return (
+        // 메인 화면에 프로그램 리스트
         <ul className="program-list">
             {
                 programs?.map(program => (

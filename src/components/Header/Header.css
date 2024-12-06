@@ -1,7 +1,8 @@
 header {
     width: 100%;
-    height: 75px;
+    height: 50px;
     position: relative;
+    background-color: #D01C25;
 }
 
 header .logo {

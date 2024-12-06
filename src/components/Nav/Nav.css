@@ -1,36 +1,19 @@
-nav {
+.nav-container {
     width: 100%;
     height: 70px;
-    background-color: #C20324;
     display: flex;
-    justify-content: center;
     align-items: center;
+    box-shadow: 2px 2px 2px lightgray;
 
     overflow: hidden;
 }
 
-nav ul {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nav-container .nav-logo{
+    margin-left: 5%;
 }
 
-nav ul li {
+.nav-container .nav-span {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.25rem;
-    color: white;
-    font-weight: 500;
-}
-
-nav .btn-sitemap {
-    background-color: #8F0019;
-    margin-left: 1rem;
-    padding: 1.5rem 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 2rem;
+    margin-left: 55%;
 }

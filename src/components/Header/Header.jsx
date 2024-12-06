@@ -16,7 +16,7 @@ const Header = ({
 
     return (
         <header>
-            <a className="logo">
+            {/* <a className="logo">
                 <img src={logoImage} alt="logo" />
             </a>
             {
@@ -61,7 +61,7 @@ const Header = ({
                 <StudentSignIn
                     setIsShowStudentLogin={setIsShowStudentLogin}
                 />
-            }
+            } */}
         </header>
     )
 }
