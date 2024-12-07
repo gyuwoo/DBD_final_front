@@ -10,36 +10,62 @@
     
 }
 
-.show-spot div.spot-1 {
-
-    width: 100%;
-    height: 55vh;
+.banner {
+    background-color: #4662FF;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
     display: flex;
-    margin-top: 30px;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
-.show-spot .spot-1 .spot-main-1 {
+
+.show-spot .spot-container {
+
+    width: 100%;
+    height: 108vh;
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.show-spot .spot-container .spot-main-container {
     width: 50%;
     border-radius: 20px;
 }
 
-.show-spot .spot-1 .spot-login {
+.spot-22 {
+    
+    width: 1080px;
+}
+
+.spot-2 {
+    width: 400PX;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.show-spot .spot-container .spot-login {
     border: 1px solid black;
     border-radius: 12px;
     padding: 30px;
 }
 
-.show-spot .spot-1 .spot-login .spot-login-span{
+.show-spot .spot-container .spot-login .spot-login-span{
     border-bottom: 1px solid black;
     padding-bottom: 20px;
 }
 
-.show-spot .spot-1 .spot-login .spot-login-span .strong{
+.show-spot .spot-container .spot-login .spot-login-span .strong{
     color: #D01C25;
 }
 
-.show-spot .spot-1 .spot-login .spot-login-input{
+.show-spot .spot-container .spot-login .spot-login-input{
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -60,9 +86,104 @@
     border-radius: 4px;
 }
 
-.spot-mission {
-    border: 1px solid black;
+.spot-mission-wrapper {
+    position: relative;
+    border: 1px solid lightgray;
+    padding: 10px;
     border-radius: 12px;
-    padding: 30px;
-    margin-top: 40px;
+    overflow: hidden; /* 내용이 블러 밖으로 넘치지 않도록 설정 */
+    margin-top: 16px;
+}
+
+.svg-span{
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.spot-mission-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: lightgray; /* 배경색 */
+    filter: blur(50px); /* 블러 효과 */
+}
+
+.spot-mission-content {
+    position: relative;
+    z-index: 2; /* 블러보다 위로 배치 */
+    padding: 16px;
+}
+
+.blur-span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: #000; /* 텍스트 색상 */
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 각 행에 두 개의 열 */
+    gap: 20px; /* 박스 간격 */
+    
+}
+
+.chart-box {
+    
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+}
+
+
+/* 차트 크기 조정 */
+.chart-box canvas {
+    max-width: 300px; /* 차트 너비 제한 */
+    max-height: 245px; /* 차트 높이 제한 */
+    margin: auto;
+}
+
+  /* 테이블 크기 조정 */
+.chart-box table {
+    width: 100%; /* 테이블 너비를 박스에 맞춤 */
+    font-size: 0.9rem; /* 글자 크기 축소 */
+}
+
+.chart-box h3 {
+    text-align: center;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid #d32f2f;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+table th, table td {
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.mission-progress {
+    padding-top: 15.5px;
+}
+
+.mission-msg {
+    margin-top: 10px;
 }
