@@ -94,6 +94,11 @@ const MainContainer = () => {
                 // window.location.replace("/");
                 if (res.data.type === "std"){
                     console.log("학생 메인으로 이동")
+                    window.location.replace("/");
+                    navigate('/')
+                } else {
+                    console.log("교수 메인으로 이동")
+                    navigate('/prof')
                 }
             });
 

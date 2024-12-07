@@ -27,8 +27,8 @@ export const ShowSpot = ({
         datasets: [
         {
             data: [78, 22], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F47560'], // 색상
-            hoverBackgroundColor: ['#61CDBB', '#F47560'], // 호버 색상
+            backgroundColor: ['#61CDBB', '#F47560'],
+            hoverBackgroundColor: ['#61CDBB', '#F47560'],
         },
         ],
     };
@@ -38,8 +38,8 @@ export const ShowSpot = ({
         datasets: [
         {
             data: [60, 28, 12], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F1E15B','#F47560'], // 색상
-            hoverBackgroundColor: ['#61CDBB', '#F1E15B','#F47560'], // 호버 색상
+            backgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
+            hoverBackgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
         },
         ],
     };
@@ -85,9 +85,9 @@ export const ShowSpot = ({
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr><td>1</td><td>류윤종</td><td>102</td></tr>
+                                    <tr><td>1</td><td>경병규</td><td>102</td></tr>
                                     <tr><td>2</td><td>유채림</td><td>101</td></tr>
-                                    <tr><td>3</td><td>경병규</td><td>97</td></tr>
+                                    <tr><td>3</td><td>류운종</td><td>97</td></tr>
                                     <tr><td>4</td><td>김원묵</td><td>95</td></tr>
                                     <tr><td>5</td><td>정민우</td><td>92</td></tr>
                                     </tbody>
@@ -112,6 +112,7 @@ export const ShowSpot = ({
                             <input
                                 type="text"
                                 placeholder="아이디"
+                                className="spot-login-input1"
                                 value={studentInfo.id}
                                 onChange={(e) => {
                                     setStudentInfo(prev => {
@@ -123,6 +124,7 @@ export const ShowSpot = ({
                             <input
                                 type="text"
                                 placeholder="비밀번호"
+                                className="spot-login-input1"
                                 value={studentInfo.pw}
                                 onChange={(e) => {
                                     setStudentInfo(prev => {
