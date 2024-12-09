@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logoImage from '../../assets/h1_logo.png';
 import userImage from '../../assets/user.png';
+import axios from "axios";
 import signoutImage from '../../assets/signout.png';
 import './Header.css';
 import StudentSignIn from "../SIgnIn/Student/StudentSignIn";
@@ -14,8 +15,25 @@ const Header = ({
         setIsShowStudentLogin(!isShowStudentLogin);
     }
 
+    // const Logout = async () => {
+    //     try {
+    //         const ok = window.confirm('정말 로그아웃 하시겠습니까?');
+    //         if (!ok) return;
+    //         axios
+    //         .post("http://localhost:4000/logout", {info: see})
+    //         .then((res) => {
+    //             console.log(res.data);
+    //         });
+
+    //     } catch {
+    //         console.error();
+    //     }
+    // }
+
     return (
         <header>
+            {/* <button onClick={Logout}>로그아웃</button> */}
+
             {/* <a className="logo">
                 <img src={logoImage} alt="logo" />
             </a>

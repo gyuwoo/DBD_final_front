@@ -28,7 +28,7 @@ const PieChart = ({
                     size: 14,
                     weight: "bold",
                 },
-                formatter: (value, context) => `${value}%`,
+                
             },
         },
     };

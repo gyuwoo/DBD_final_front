@@ -20,27 +20,40 @@ export const ShowSpot = ({
     StudentLogin,
     studentInfo,
     setStudentInfo,
+    misAcc, 
+    misClear, 
+    seedRank, 
+    compeUp,
 }) => {
 
+    // 미션 이수율 데이터
     const data1 = {
         labels: ['이수', '미이수'],
         datasets: [
-        {
-            data: [78, 22], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F47560'],
-            hoverBackgroundColor: ['#61CDBB', '#F47560'],
-        },
+            {
+                data: [
+                    misClear.filter(item => item.isu_state === "이수").length,
+                    misClear.filter(item => item.isu_state === "미이수").length,
+                ],
+                backgroundColor: ['#61CDBB', '#F47560'],
+                hoverBackgroundColor: ['#61CDBB', '#F47560'],
+            },
         ],
     };
 
+    // 미션 수락률 데이터
     const data2 = {
-        labels: ['미션 수락율', '미션 보류', '미션 거절율'],
+        labels: ['미션 수락', '미션 보류', '미션 거절'],
         datasets: [
-        {
-            data: [60, 28, 12], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
-            hoverBackgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
-        },
+            {
+                data: [
+                    misAcc.filter(item => item.state === "수락").length,
+                    misAcc.filter(item => item.state === "보류").length,
+                    misAcc.filter(item => item.state === "거절").length,
+                ],
+                backgroundColor: ['#61CDBB', '#F1E15B', '#F47560'],
+                hoverBackgroundColor: ['#61CDBB', '#F1E15B', '#F47560'],
+            },
         ],
     };
 
@@ -51,7 +64,7 @@ export const ShowSpot = ({
             <div className="spot-container">
                 <div className="spot-22">
                     <div className="banner">
-                        <span>미션이 부여되는 주간입니다. 로그인하여 상태를 확인해주세요!!</span>
+                        <span>미션이 부여되는 주간입니다. 로그인하여 상태를 확인해주세요!!{studentInfo.name}</span>
                     </div>
                     <div className="charts-container">
 
@@ -78,25 +91,31 @@ export const ShowSpot = ({
                                 </h3>
                                 <table>
                                     <thead>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>이름</th>
-                                        <th>씨앗포인트</th>
-                                    </tr>
+                                        <tr>
+                                            <th>순위</th>
+                                            <th>이름</th>
+                                            <th>씨앗포인트</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr><td>1</td><td>경병규</td><td>102</td></tr>
-                                    <tr><td>2</td><td>유채림</td><td>101</td></tr>
-                                    <tr><td>3</td><td>류운종</td><td>97</td></tr>
-                                    <tr><td>4</td><td>김원묵</td><td>95</td></tr>
-                                    <tr><td>5</td><td>정민우</td><td>92</td></tr>
+                                        {seedRank.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.rank}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.seed}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div className="chart-box">
-                        <h3>전체 역량 성장폭이 큰 상위 5명 (2024년 2학기)</h3>
-                        <BarChart className="chart-barchart"/>
+                        <h3>총 역량 평균 상위 5명</h3>
+                        <BarChart 
+                            className="chart-barchart"
+                            labels={compeUp.map(item => item.name)}
+                            dataset={compeUp.map(item => item.average_compe_figure)}
+                        />
                         </div>
                     </div>
                 </div>
