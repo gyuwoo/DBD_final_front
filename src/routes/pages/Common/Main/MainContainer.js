@@ -6,9 +6,11 @@ import Topcit from '../../../../assets/topcit.png';
 import DLearning from '../../../../assets/dlearning.jpg';
 
 const MainContainer = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     // 페이지 이동을 위한 외부 함수
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
+
     const [studentInfo, setStudentInfo] = useState({
         id: '',
         pw: '',
@@ -73,17 +75,17 @@ const MainContainer = () => {
         },
     ])
 
-    const signOut = async () => {
-        const ok = window.confirm('정말 로그아웃 하시겠습니까?');
-        if (!ok) return;
+    // const Logout = async () => {
+    //     const ok = window.confirm('정말 로그아웃 하시겠습니까?');
+    //     if (!ok) return;
 
-        const result = await fetch('http://localhost:3333/user/signout', {
-            method: 'post',
-            credentials: 'include',
-        });
+    //     const result = await fetch('http://localhost:4000/logout', {
+    //         method: 'post',
+    //         credentials: 'include',
+    //     });
 
-        window.location.reload();
-    }
+    //     window.location.reload();
+    // }
 
     const StudentLogin = async () => {
         try {
@@ -91,21 +93,55 @@ const MainContainer = () => {
             .post("http://localhost:4000/login", { info: studentInfo })
             .then((res) => {
                 console.log(res.data);
-                // window.location.replace("/");
                 if (res.data.type === "std"){
-                    console.log("학생 메인으로 이동")
-                    window.location.replace("/");
-                    navigate('/')
-                } else {
-                    console.log("교수 메인으로 이동")
+                    setIsLoggedIn(true)
+                    console.log(studentInfo);
+                    // navigate('/std')
+                    // window.location.replace("/");
+                } else if (res.data.type === "prof"){
+                    setIsLoggedIn(true)
                     navigate('/prof')
+                } else {
+                    console.error("로그인 오류")
+                    alert("로그인 오류");
                 }
             });
-
         } catch {
             console.error();
         }
     }
+
+
+    const [ mainData, setMainData] = useState({
+        misAcc: [],
+        misClear: [],
+        seedRank: [],
+        programList: [],
+        compeUp: [],
+    })
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await axios.get("http://localhost:4000/"); // Replace with your API endpoint
+            setMainData(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching main page data:", error);
+        }
+        };
+    
+        fetchData();
+    }, []);
+    
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    
+    
 
     // useEffect(() => {
     //     (
@@ -145,8 +181,8 @@ const MainContainer = () => {
             studentInfo={studentInfo}
             setStudentInfo={setStudentInfo}
 
-            user={user}
-            signOut={signOut}
+
+            mainData={mainData}
         />
     )
 }

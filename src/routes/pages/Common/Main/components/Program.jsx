@@ -1,14 +1,16 @@
 import React from "react";
 import './Program.css';
+// import ProgramImage from '../../../../../assets/program/'
 
 export const ProgramList = ({
-    programs
+    programs,
+    programList
 }) => {
 
     return (
         // 메인 프로그램 리스트
         <div className="program-list-wrapper">
-            {programs?.map((program) => (
+            {programList?.map((program) => (
                 <div className="program-card" key={program.id}>
                 {/* 상태 표시 */}
                 <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>
