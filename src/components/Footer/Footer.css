@@ -9,6 +9,8 @@ footer {
     color: #555;
     padding: 0 80px;
     font-size: 14px;
+    position: relative;
+    z-index: 10;
 
     margin-top: 30px;
 }
