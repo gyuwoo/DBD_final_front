@@ -3,7 +3,7 @@ import "./ProfHeader.css";
 import logoImage from '../../assets/head_prof.png';
 import axios from "axios";
 
-const ProfHeader = () => {
+const ProfHeader = ({professorName}) => {
     const Logout = async () => {
         try {
             const confirmLogout = window.confirm("정말 로그아웃 하시겠습니까?");
@@ -27,8 +27,9 @@ const ProfHeader = () => {
                 />
                 <span className="header-title">동서대학교 비교과통합관리시스템</span>
                 <div className="header-right">
-                    <span>OOO님 환영합니다</span>
+                    <span>{professorName}님 환영합니다</span>
                     <a href="/" className="header-logout" onClick={Logout}>로그아웃</a>
+                    
                 </div>
             </div>
         </header>

@@ -7,33 +7,21 @@ const ProfContainer = () => {
     const [pieData, setPieData] = useState(null);
     const [tableData, setTableData] = useState([]);
     const [expandedStudentId, setExpandedStudentId] = useState(null);
+    const [professorName, setProfessorName] = useState("교수님");
+    const [studentBarChartData, setStudentBarChartData] = useState(null);
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // `localhost:4000/profmain`에서 전체 데이터 가져오기
                 const mainResponse = await fetch("http://localhost:4000/profmain");
                 const mainData = await mainResponse.json();
-                console.log(mainData);
 
-                // 전체 학생 역량 데이터 처리
+                setProfessorName(mainData.name?.[0]?.name || "교수님");
+
                 const totalCompeCategories = ["리더십", "유연성", "독창성", "자기개발", "멘토링", "협동"];
-                const totalCompeValues = [
-                    mainData.totalCompe[0].lead,
-                    mainData.totalCompe[0].plia,
-                    mainData.totalCompe[0].orig,
-                    mainData.totalCompe[0].self,
-                    mainData.totalCompe[0].mento,
-                    mainData.totalCompe[0].colla,
-                ];
-                const totalCompeDifferences = [
-                    mainData.totalCompeUp[0].lead,
-                    mainData.totalCompeUp[0].plia,
-                    mainData.totalCompeUp[0].orig,
-                    mainData.totalCompeUp[0].self,
-                    mainData.totalCompeUp[0].mento,
-                    mainData.totalCompeUp[0].colla,
-                ];
+                const totalCompeValues = Object.values(mainData.totalCompe[0]);
+                const totalCompeDifferences = Object.values(mainData.totalCompeUp[0]);
 
                 setRawData({
                     categories: totalCompeCategories,
@@ -41,16 +29,7 @@ const ProfContainer = () => {
                     differences: totalCompeDifferences,
                 });
 
-                // 지도 학생 역량 데이터 처리
-                const guideCompeDifferences = [
-                    mainData.stdCompeUp[0].lead,
-                    mainData.stdCompeUp[0].plia,
-                    mainData.stdCompeUp[0].orig,
-                    mainData.stdCompeUp[0].self,
-                    mainData.stdCompeUp[0].mento,
-                    mainData.stdCompeUp[0].colla,
-                ];
-
+                const guideCompeDifferences = Object.values(mainData.stdCompeUp[0]);
                 setGuideRawData({
                     categories: totalCompeCategories,
                     currentSemester: totalCompeValues.map(
@@ -59,38 +38,49 @@ const ProfContainer = () => {
                     differences: guideCompeDifferences,
                 });
 
-                // 미션 보류 학생 테이블 데이터 처리
-                setTableData(
-                    mainData.holdStd.map((student) => ({
-                        grade: student.grade,
+                const studentData = mainData.holdStd.map((student) => {
+                    // 미션 데이터와 연결 (현재 student_std_id 정보가 없음)
+                    const studentMissions = mainData.holdMission;
+
+                    return {
                         studentId: student.std_id,
                         name: student.name,
-                        holdList: mainData.holdMission.filter(
-                            (mission) => mission.student_std_id === student.std_id
-                        ),
-                    }))
-                );
+                        grade: student.grade,
+                        deferDate: studentMissions[0]?.hold_date || "-", // 첫 번째 미션 날짜
+                        targetScore: studentMissions.reduce(
+                            (sum, mission) => sum + (mission.hold_figure || 0),
+                            0
+                        ), // hold_figure 합산
+                        holdList: studentMissions.map((mission) => ({
+                            compe_name: mission.compe_name || "-",
+                            hold_figure: mission.hold_figure || 0,
+                            compe_figure: mission.hold_figure || 0,
+                        })),
+                    };
+                });
 
-                // `localhost:4000/profacc`에서 Pie Chart 데이터 가져오기
+                setTableData(studentData);
+                console.log("Processed Table Data:", studentData);
+
+
                 const pieResponse = await fetch("http://localhost:4000/profacc");
-                const pieDataRes = await pieResponse.json();
+                const pieData = await pieResponse.json();
 
-                // Pie Chart 데이터 가공 (0인 값 제외)
-                const pieDataFiltered = Object.entries(pieDataRes.selAccept)
-                    .filter(([key, value]) => value > 0)
-                    .map(([key, value]) => ({
-                        label: key === "acc" ? "미션 수락" : 
-                            key === "rej" ? "미션 거절" : 
-                            key === "hold" ? "미션 보류" : "미션 대기",
-                        value,
-                    }));
+                const pieChartData = Object.entries(pieData.selAccept)
+                    .filter(([_, value]) => value > 0)
+                    .map(([key, value]) => ({ label: key, value }));
 
-                const total = pieDataFiltered.reduce((sum, item) => sum + item.value, 0);
                 setPieData({
-                    labels: pieDataFiltered.map((item) => item.label),
+                    labels: pieChartData.map((item) => {
+                        if (item.label === "acc") return "미션 수락";
+                        if (item.label === "hold") return "미션 보류";
+                        if (item.label === "rej") return "미션 거절";
+                        if (item.label === "wait") return "미션 대기";
+                        return item.label;
+                    }),
                     datasets: [
                         {
-                            data: pieDataFiltered.map((item) => Math.round((item.value / total) * 100)),
+                            data: pieChartData.map((item) => item.value),
                             backgroundColor: ["#61CDBB", "#F1E15B", "#F47560", "#A6CEE3"],
                         },
                     ],
@@ -103,23 +93,49 @@ const ProfContainer = () => {
         fetchData();
     }, []);
 
-    const toggleStudentDetails = (studentId) => {
-        setExpandedStudentId((prevId) => (prevId === studentId ? null : studentId));
+    const fetchStudentBarChartData = async (studentId) => {
+        try {
+            const response = await fetch("http://localhost:4000/profacc", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ std_id: studentId }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                setStudentBarChartData(data); // Ensure the backend sends `stdCompe` and `stdCompeUp`
+            } else {
+                console.error("Failed to fetch student bar chart data");
+            }
+        } catch (error) {
+            console.error("Error fetching student bar chart data:", error);
+        }
+    };
+    
+    const toggleStudentDetails = async (studentId) => {
+        if (expandedStudentId === studentId) {
+            setExpandedStudentId(null);
+            setStudentBarChartData(null); // Clear chart data when deselected
+        } else {
+            setExpandedStudentId(studentId);
+            await fetchStudentBarChartData(studentId); // Fetch data for selected student
+        }
     };
 
-    // 데이터를 모두 로드했는지 확인
     if (!rawData || !guideRawData || !pieData || tableData.length === 0) {
-        return <div>Loading...</div>; // 로딩 상태 처리
+        return <div>Loading...</div>;
     }
 
     return (
         <ProfPresenter
+            professorName={professorName}
             rawData={rawData}
             guideRawData={guideRawData}
             pieData={pieData}
             tableData={tableData}
-            expandedStudentId={expandedStudentId} // 상태 전달
-            toggleStudentDetails={toggleStudentDetails} // 함수 전달
+            expandedStudentId={expandedStudentId}
+            toggleStudentDetails={toggleStudentDetails}
+            studentBarChartData={studentBarChartData}
         />
     );
 };
