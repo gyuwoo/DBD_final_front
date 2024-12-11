@@ -150,9 +150,8 @@ const ProfPresenter = ({
                 ) : (
                     <PieChart data={pieData} title="현재 미션 수락률 (2025년 1학기)" />
                 )}
-</div>
-
             </div>
+        </div>
 
             <div className="table-student">
                 <h3>미션 보류 학생 목록</h3>
