@@ -26,33 +26,46 @@ export const ShowSpot = ({
     compeUp,
 }) => {
 
-    // 미션 이수율 데이터
-    const data1 = {
-        labels: ['이수', '미이수'],
+    // 전체 학생 수
+    const totalStudents = 50; // 총 학생 수 (예: 50명)
+
+    // 미션 수락률 데이터
+    const misAccData = [
+        { label: '미션 수락', value: Math.round((misAcc.find(item => item.state === "수락")?.std_num || 0) / totalStudents * 100) },
+        { label: '미션 보류', value: Math.round((misAcc.find(item => item.state === "보류")?.std_num || 0) / totalStudents * 100) },
+        { label: '미션 거절', value: Math.round((misAcc.find(item => item.state === "거절")?.std_num || 0) / totalStudents * 100) },
+    ];
+
+    // 0%가 아닌 데이터만 필터링
+    const filteredMisAccData = misAccData.filter(item => item.value > 0);
+
+    const data2 = {
+        labels: filteredMisAccData.map(item => item.label), // X축 레이블
         datasets: [
             {
-                data: [
-                    misClear.filter(item => item.isu_state === "이수").length,
-                    misClear.filter(item => item.isu_state === "미이수").length,
-                ],
-                backgroundColor: ['#61CDBB', '#F47560'],
-                hoverBackgroundColor: ['#61CDBB', '#F47560'],
+                data: filteredMisAccData.map(item => item.value),
+                backgroundColor: ['#61CDBB', '#F1E15B', '#F47560'].slice(0, filteredMisAccData.length),
+                hoverBackgroundColor: ['#61CDBB', '#F1E15B', '#F47560'].slice(0, filteredMisAccData.length),
             },
         ],
     };
 
-    // 미션 수락률 데이터
-    const data2 = {
-        labels: ['미션 수락', '미션 보류', '미션 거절'],
+    // 미션 이수율 데이터
+    const misClearData = [
+        { label: '이수', value: Math.round((misClear.find(item => item.isu_state === "이수")?.std_num || 0) / totalStudents * 100) },
+        { label: '미이수', value: Math.round((misClear.find(item => item.isu_state === "미이수")?.std_num || 0) / totalStudents * 100) },
+    ];
+
+    // 0%가 아닌 데이터만 필터링
+    const filteredMisClearData = misClearData.filter(item => item.value > 0);
+
+    const data1 = {
+        labels: filteredMisClearData.map(item => item.label), // X축 레이블
         datasets: [
             {
-                data: [
-                    misAcc.filter(item => item.state === "수락").length,
-                    misAcc.filter(item => item.state === "보류").length,
-                    misAcc.filter(item => item.state === "거절").length,
-                ],
-                backgroundColor: ['#61CDBB', '#F1E15B', '#F47560'],
-                hoverBackgroundColor: ['#61CDBB', '#F1E15B', '#F47560'],
+                data: filteredMisClearData.map(item => item.value), 
+                backgroundColor: ['#61CDBB', '#F47560'].slice(0, filteredMisClearData.length),
+                hoverBackgroundColor: ['#61CDBB', '#F47560'].slice(0, filteredMisClearData.length),
             },
         ],
     };
@@ -64,7 +77,7 @@ export const ShowSpot = ({
             <div className="spot-container">
                 <div className="spot-22">
                     <div className="banner">
-                        <span>미션이 부여되는 주간입니다. 로그인하여 상태를 확인해주세요!!{studentInfo.name}</span>
+                        <span>미션이 부여되는 주간입니다. 로그인하여 상태를 확인해주세요!!</span>
                     </div>
                     <div className="charts-container">
 
@@ -78,7 +91,7 @@ export const ShowSpot = ({
                         <div className="chart-box">
                             <PieChart 
                                 data={data2}
-                                title="현재 미션 수락율 (2024년 2학기)"
+                                title="현재 미션 수락률 (2024년 2학기)"
                             />
                         </div>
 
@@ -197,7 +210,7 @@ const styles = {
         marginBottom: "20px",
     },
     category: {
-        flexBasis: "100px",
+        flexBasis: "60px",
         textAlign: "left",
     },
     barContainer: {

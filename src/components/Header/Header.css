@@ -84,3 +84,20 @@ header .student-info-list .student-info:first-child::after {
 header .student-info-list .signout-button {
     cursor: pointer;
 }
+
+.logout-div {
+    display: flex;
+    justify-content: end;
+    margin-right: 15%;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: #D01C25;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 3px;
+}

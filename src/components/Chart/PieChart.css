@@ -1,0 +1,54 @@
+.pie-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 차트와 범례를 가운데 정렬 */
+    justify-content: center;
+    margin: 20px auto; /* 상하 여백과 가운데 정렬 */
+    max-width: 400px; /* 차트 영역의 최대 너비 제한 */
+    background-color: #ffffff; /* 배경 흰색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    padding: 20px; /* 내부 여백 */
+}
+
+.pie-chart-container h3 {
+    font-family: 'Nanum Gothic', sans-serif; /* 제목에 적합한 폰트 */
+    font-size: 18px; /* 제목 크기 */
+    font-weight: 600; /* 굵은 텍스트 */
+    text-align: center; /* 제목 가운데 정렬 */
+    color: #333333; /* 제목 텍스트 색상 */
+    margin-bottom: 20px; /* 제목과 차트 사이 간격 */
+}
+
+.pie-chart-container canvas {
+    max-width: 100%; /* 캔버스 크기 반응형 */
+    height: 700px; /* 캔버스 높이 자동 조정 */
+}
+
+.chartjs-render-monitor {
+    margin-bottom: 20px; /* 차트와 범례 사이 간격 */
+}
+
+.pie-chart-container .chart-legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* 범례가 화면 크기에 따라 줄 바꿈 */
+    gap: 10px; /* 범례 항목 사이 간격 */
+    margin-top: 10px; /* 범례와 차트 간 간격 */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #555555; /* 범례 텍스트 색상 */
+}
+
+.pie-chart-container .chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 색상 박스와 텍스트 간 간격 */
+}
+
+.pie-chart-container .chart-legend-item .legend-color-box {
+    width: 15px;
+    height: 15px;
+    background-color: #ccc; /* 기본 색상 (데이터에 따라 변경) */
+    border-radius: 3px;
+}

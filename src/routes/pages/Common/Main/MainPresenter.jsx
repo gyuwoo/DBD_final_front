@@ -6,7 +6,6 @@ import SearchBar from './components/SearchBar';
 import './Main.css';
 
 const MainPresenter = ({
-    programs,
     StudentLogin,
     studentInfo,
     setStudentInfo,
@@ -46,7 +45,6 @@ const MainPresenter = ({
                     <h2>전체 프로그램</h2>
                     <div className="program-list">
                         <ProgramList
-                            programs={programs}
                             programList={programList}
                         />
                     </div>
