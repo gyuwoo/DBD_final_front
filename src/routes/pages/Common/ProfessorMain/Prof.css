@@ -71,7 +71,7 @@
 } 
 
 /* 버튼 스타일 */
-.batch-process {
+.batch-process  {
     position: absolute; /* 버튼이 테이블의 오른쪽 상단에 고정되도록 설정 */
     top: 15px; /* 테이블 상단에서의 거리 */
     right: 20px; /* 테이블 오른쪽에서의 거리 */
@@ -116,4 +116,18 @@
     background-color: #f7f7f7;
     font-weight: bold;
     text-align: center;
+}
+
+.adjust-button {
+    position: relative; /* 테이블 위치와 충돌하지 않도록 상대 위치로 설정 */
+    background-color: #D01C25;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
