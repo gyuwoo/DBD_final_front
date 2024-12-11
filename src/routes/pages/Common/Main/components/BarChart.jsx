@@ -77,7 +77,6 @@ const BarChart = ({ labels, dataset }) => {
         },
         title: {
             display: true,
-            
             datalabels: {
                 color: "#fff", // 데이터 라벨 색상 (막대 안의 글자)
                 font: {

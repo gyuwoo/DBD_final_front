@@ -1,26 +1,23 @@
 import React from "react";
-import './Program.css';
+import './StdProgram.css';
 
-// 이미지 파일 경로를 동적으로 가져오기 위한 함수
 const getProgramImage = (programId) => {
     try {
-        // 프로그램 ID를 기반으로 이미지 파일 경로 반환
-        return require(`../../../../../assets/program/${programId}.png`);
+        return require(`../../../../../assets/program/${programId}.png`)
     } catch (error) {
-        // 이미지가 없는 경우 기본 이미지를 반환
         return;
     }
 };
 
-export const ProgramList = ({
+export const StdProgram = ({
     programs,
-    programList
+    recommendProgram
 }) => {
 
     return (
         // 메인 프로그램 리스트
         <div className="program-list-wrapper">
-            {programList?.map((program) => (
+            {recommendProgram?.map((program) => (
                 <div className="program-card" key={program.id}>
                 {/* 상태 표시 */}
                 {/* <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useFetcher } from 'react-router-dom';
-import { Main, Prof, Std } from "./pages";
+import { Main, Prof, Std, My } from "./pages";
 
 const Router = () => {
     return (
@@ -17,6 +17,10 @@ const Router = () => {
                 <Route
                     path="/std"
                     element={<Std />}
+                />
+                <Route
+                    path="/mypage"
+                    element={<My />}
                 />
             </Routes>
         </div>

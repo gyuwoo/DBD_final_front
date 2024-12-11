@@ -51,13 +51,13 @@
 }
 
 .show-spot .spot-container .spot-login {
-    border: 1px solid black;
+    border: 1px solid #ddd;
     border-radius: 12px;
     padding: 30px;
 }
 
 .show-spot .spot-container .spot-login .spot-login-span{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
 }
 
@@ -181,7 +181,7 @@ table th, table td {
 }
 
 .mission-progress {
-    padding-top: 15.5px;
+    padding-top: 11.5px;
 }
 
 .mission-msg {
