@@ -39,28 +39,28 @@ const ProfContainer = () => {
                 });
 
                 const studentData = mainData.holdStd.map((student) => {
-    // 미션 데이터와 연결 (현재 student_std_id 정보가 없음)
-    const studentMissions = mainData.holdMission;
+                    // 미션 데이터와 연결 (현재 student_std_id 정보가 없음)
+                    const studentMissions = mainData.holdMission;
 
-    return {
-        studentId: student.std_id,
-        name: student.name,
-        grade: student.grade,
-        deferDate: studentMissions[0]?.hold_date || "-", // 첫 번째 미션 날짜
-        targetScore: studentMissions.reduce(
-            (sum, mission) => sum + (mission.hold_figure || 0),
-            0
-        ), // hold_figure 합산
-        holdList: studentMissions.map((mission) => ({
-            compe_name: mission.compe_name || "-",
-            hold_figure: mission.hold_figure || 0,
-            compe_figure: mission.compe_figure || 0,
-        })),
-    };
-});
+                    return {
+                        studentId: student.std_id,
+                        name: student.name,
+                        grade: student.grade,
+                        deferDate: studentMissions[0]?.hold_date || "-", // 첫 번째 미션 날짜
+                        targetScore: studentMissions.reduce(
+                            (sum, mission) => sum + (mission.hold_figure || 0),
+                            0
+                        ), // hold_figure 합산
+                        holdList: studentMissions.map((mission) => ({
+                            compe_name: mission.compe_name || "-",
+                            hold_figure: mission.hold_figure || 0,
+                            compe_figure: mission.hold_figure || 0,
+                        })),
+                    };
+                });
 
-setTableData(studentData);
-console.log("Processed Table Data:", studentData);
+                setTableData(studentData);
+                console.log("Processed Table Data:", studentData);
 
 
                 const pieResponse = await fetch("http://localhost:4000/profacc");

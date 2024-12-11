@@ -6,7 +6,7 @@ import ProfHeader from "../../../../components/Header/ProfHeader";
 import "./Prof.css";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import PieChart from "../../../../components/Chart/PieChart";
-import BarChart from "../../../../components/Chart/\bBarChart";
+import BarChart from "../../../../components/Chart/BarChart";
 
 const ProfPresenter = ({
     professorName,
