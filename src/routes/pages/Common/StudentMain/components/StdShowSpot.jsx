@@ -79,7 +79,6 @@ export const StdShowSpot = ({ studentData }) => {
 
     return (
         <div className="show-spot">
-            <button onClick={test}>test</button>
             <div className="std-spot-container">
                 {/* 성장 그래프 */}
                 <div className="growth-chart">
@@ -105,12 +104,18 @@ export const StdShowSpot = ({ studentData }) => {
                     <div className="info-box">
                         <h3 onClick={()=> {navigate('/mypage')}}>📌 진행중인 미션 목록 및 진척도</h3>
                         <p>"이제 정말 얼마 안 남았어! 조금만 더 힘내면 목표에 도달할 수 있어!"</p>
-                        <span>카테고리 / 현재 / 목표</span>
+                        <div className="info-categoty">
+                            <span>카테고리</span>
+                            <span>현재</span>
+                            <span>목표</span>
+                        </div>
                         {acceptMission ? (
                             <>
                                 {acceptMission.map((mission, index) => (
                                     <div key={index}  className="mission-progress-row" onClick={()=> {navigate('/mypage')}}>
-                                        <span className="compe-name">{mission.compe_name}/</span>
+                                        <div className="compe-name">
+                                            <span>{mission.compe_name}</span>
+                                        </div>
                                         {/* <div className="progress-bar-container">
                                             <div
                                                 className="progress-bar"
@@ -121,9 +126,12 @@ export const StdShowSpot = ({ studentData }) => {
                                             ></div>
                                             {mission.progress_figure || 0}
                                         </div> */}
-                                        
-                                        <span>{mission.progress_figure || 0}   /</span>
-                                        <span>{mission.compe_figure || 0}</span>
+                                        <div className="progress-figure">
+                                            <span>{mission.progress_figure || 0}</span>
+                                        </div>
+                                        <div className="compe-figure">
+                                            <span>{mission.compe_figure || 0}</span>
+                                        </div>
                                     </div>
                                 ))}
                             </>
