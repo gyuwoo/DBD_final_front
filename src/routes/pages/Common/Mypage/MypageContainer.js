@@ -10,6 +10,7 @@ const MypageContainer = () => {
             try {
                 const response = await axios.get("http://localhost:4000/mission", { withCredentials: true });
                 setMissionData(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.log("미션 데이터 없음");
             }

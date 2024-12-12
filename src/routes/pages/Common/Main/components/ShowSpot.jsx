@@ -179,7 +179,7 @@ export const ShowSpot = ({
                             </svg><span className="svg-span">진행중인 미션 목록 및 진척도</span>
                         </div>
                         <div className="mission-msg">
-                            <span className="mission-msg-span">응원메시지 span 입니다</span>
+                            <span className="mission-msg-span">응원메시지입니다</span>
                         </div>
 
                         {/* 카테고리와 막대 그래프 */}
