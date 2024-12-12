@@ -33,15 +33,13 @@ const ApplicationModal = ({ isOpen, onClose, programData }) => {
         }
 
         const applicationData = {
-            student_id: studentId,
-            name: name,
-            grade: grade,
-            form_type: selectedForm,
             program_id: programData.id,
+            program_name: programData.program_name,
+            compe_name: programData.compe_name,
         };
 
         try {
-            const response = await fetch("", {
+            const response = await fetch("http://localhost:4000/programApli", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -4,6 +4,14 @@ import Footer from "../../../../components/Footer/Footer";
 import ApplicationModal from "./component/ApplicationModal";
 import "./Detail.css";
 
+const getProgramImage = (programId) => {
+    try {
+        return require(`../../../../assets/program/${programId}.png`)
+    } catch (error) {
+        return;
+    }
+};
+
 const DetailPresenter = ({ program }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,6 +30,7 @@ const DetailPresenter = ({ program }) => {
     }
 
     const programData = program[0]; // JSON 데이터의 첫 번째 값 사용
+    
 
     return (
         <div>
@@ -47,7 +56,7 @@ const DetailPresenter = ({ program }) => {
                         {/* 이미지 */}
                         <div className="program-image">
                             <img
-                                src={programData.poster.replace("'", "")} // 경로 수정
+                                src={getProgramImage(programData.id)} // 경로 수정
                                 alt={programData.program_name}
                                 className="program-poster"
                             />
@@ -135,7 +144,6 @@ const DetailPresenter = ({ program }) => {
                     </div>
                 </div>
             </Layout>
-            <Footer />
 
             {/* 프로그램 신청 모달 */}
             <ApplicationModal

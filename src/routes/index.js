@@ -24,7 +24,7 @@ const Router = () => {
                 />
                 <Route
                     path="/detail"
-                    elemen={<Detail />}
+                    element={<Detail />}
                 />
             </Routes>
         </div>

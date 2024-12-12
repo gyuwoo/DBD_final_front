@@ -14,7 +14,8 @@ const getProgramImage = (programId) => {
 };
 
 export const ProgramList = ({
-    programs
+    programs,
+    programList
 }) => {
     const navigate = useNavigate();
 
@@ -24,13 +25,13 @@ export const ProgramList = ({
             {programList?.map((program) => (
                 <div className="program-card" key={program.id} onClick={() => navigate('/detail')}>
                 {/* 상태 표시 */}
-                <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>
+                {/* <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>
                     {program.state}
-                </div>
+                </div> */}
 
                 {/* 이미지 */}
                 <div className="program-img">
-                    <img src={program.poster} alt={program.program_name} />
+                    <img src={getProgramImage(program.id)} alt={program.program_name} />
                 </div>
 
                 {/* 정보 */}

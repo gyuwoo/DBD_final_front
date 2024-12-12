@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 import {
 Chart as ChartJS,
 CategoryScale,
@@ -14,22 +15,59 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
-const BarChart = () => {
+
+
+const BarChart = ({ labels, dataset }) => {
+
     const data = {
-        labels: ["김민지", "이혜인", "김민정", "김동영", "유희승"], // X축 라벨
+        labels: labels,
         datasets: [
             {
-                label: "기존 역량",
-                data: [20, 35, 40, 55, 45],
-                backgroundColor: "#E8A838", 
-            },
-            {
-                label: "향상 수치",
-                data: [75, 65, 65, 55, 50],
-                backgroundColor: "#97E3D5",
+            label: "기존 역량",
+            data: dataset,
+            backgroundColor: "#E8A838",
             },
         ],
     };
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('http://localhost:4000/');
+    //             const result = response.data;
+
+    //             const labels = result.compeUp.map(item => item.name);
+    //             const data = result.compeUp.map(item => item.average_compe_figure);
+
+    //             setBarData({
+    //                 labels: labels,
+    //                 datasets: [
+    //                     {
+    //                         label: "역량 평균",
+    //                         data: data,
+    //                         backgroundColor: "#61CDBB",
+    //                     },
+    //                 ],
+    //             });
+    //         } catch (error) {
+    //             console.error("Error fetching data:", error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
+
+    // const data = {
+    //     labels: ["김민지", "이혜인", "김민정", "김동영", "유희승"], // X축 라벨
+    //     datasets: [
+    //         {
+    //             label: "기존 역량",
+    //             data: [20, 35, 40, 55, 45],
+    //             backgroundColor: "#E8A838", 
+    //         },
+            
+    //     ],
+    // };
 
     const options = {
         responsive: true,
@@ -39,7 +77,6 @@ const BarChart = () => {
         },
         title: {
             display: true,
-            text: "전체 역량 성장폭이 큰 상위 5명 (2024년 2학기)",
             datalabels: {
                 color: "#fff", // 데이터 라벨 색상 (막대 안의 글자)
                 font: {

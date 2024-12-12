@@ -20,27 +20,53 @@ export const ShowSpot = ({
     StudentLogin,
     studentInfo,
     setStudentInfo,
+    misAcc, 
+    misClear, 
+    seedRank, 
+    compeUp,
 }) => {
 
-    const data1 = {
-        labels: ['이수', '미이수'],
+    // 전체 학생 수
+    const totalStudents = 50; // 총 학생 수 (예: 50명)
+
+    // 미션 수락률 데이터
+    const misAccData = [
+        { label: '미션 수락', value: Math.round((misAcc.find(item => item.state === "수락")?.std_num || 0) / totalStudents * 100) },
+        { label: '미션 보류', value: Math.round((misAcc.find(item => item.state === "보류")?.std_num || 0) / totalStudents * 100) },
+        { label: '미션 거절', value: Math.round((misAcc.find(item => item.state === "거절")?.std_num || 0) / totalStudents * 100) },
+    ];
+
+    // 0%가 아닌 데이터만 필터링
+    const filteredMisAccData = misAccData.filter(item => item.value > 0);
+
+    const data2 = {
+        labels: filteredMisAccData.map(item => item.label), // X축 레이블
         datasets: [
-        {
-            data: [78, 22], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F47560'],
-            hoverBackgroundColor: ['#61CDBB', '#F47560'],
-        },
+            {
+                data: filteredMisAccData.map(item => item.value),
+                backgroundColor: ['#61CDBB', '#F1E15B', '#F47560'].slice(0, filteredMisAccData.length),
+                hoverBackgroundColor: ['#61CDBB', '#F1E15B', '#F47560'].slice(0, filteredMisAccData.length),
+            },
         ],
     };
 
-    const data2 = {
-        labels: ['미션 수락율', '미션 보류', '미션 거절율'],
+    // 미션 이수율 데이터
+    const misClearData = [
+        { label: '이수', value: Math.round((misClear.find(item => item.isu_state === "이수")?.std_num || 0) / totalStudents * 100) },
+        { label: '미이수', value: Math.round((misClear.find(item => item.isu_state === "미이수")?.std_num || 0) / totalStudents * 100) },
+    ];
+
+    // 0%가 아닌 데이터만 필터링
+    const filteredMisClearData = misClearData.filter(item => item.value > 0);
+
+    const data1 = {
+        labels: filteredMisClearData.map(item => item.label), // X축 레이블
         datasets: [
-        {
-            data: [60, 28, 12], // 참여율 데이터
-            backgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
-            hoverBackgroundColor: ['#61CDBB', '#F1E15B','#F47560'],
-        },
+            {
+                data: filteredMisClearData.map(item => item.value), 
+                backgroundColor: ['#61CDBB', '#F47560'].slice(0, filteredMisClearData.length),
+                hoverBackgroundColor: ['#61CDBB', '#F47560'].slice(0, filteredMisClearData.length),
+            },
         ],
     };
 
@@ -65,7 +91,7 @@ export const ShowSpot = ({
                         <div className="chart-box">
                             <PieChart 
                                 data={data2}
-                                title="현재 미션 수락율 (2024년 2학기)"
+                                title="현재 미션 수락률 (2024년 2학기)"
                             />
                         </div>
 
@@ -78,25 +104,31 @@ export const ShowSpot = ({
                                 </h3>
                                 <table>
                                     <thead>
-                                    <tr>
-                                        <th>순위</th>
-                                        <th>이름</th>
-                                        <th>씨앗포인트</th>
-                                    </tr>
+                                        <tr>
+                                            <th>순위</th>
+                                            <th>이름</th>
+                                            <th>씨앗포인트</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr><td>1</td><td>경병규</td><td>102</td></tr>
-                                    <tr><td>2</td><td>유채림</td><td>101</td></tr>
-                                    <tr><td>3</td><td>류운종</td><td>97</td></tr>
-                                    <tr><td>4</td><td>김원묵</td><td>95</td></tr>
-                                    <tr><td>5</td><td>정민우</td><td>92</td></tr>
+                                        {seedRank.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.rank}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.seed}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div className="chart-box">
-                        <h3>전체 역량 성장폭이 큰 상위 5명 (2024년 2학기)</h3>
-                        <BarChart className="chart-barchart"/>
+                        <h3>총 역량 평균 상위 5명</h3>
+                        <BarChart 
+                            className="chart-barchart"
+                            labels={compeUp.map(item => item.name)}
+                            dataset={compeUp.map(item => item.average_compe_figure)}
+                        />
                         </div>
                     </div>
                 </div>
@@ -147,7 +179,7 @@ export const ShowSpot = ({
                             </svg><span className="svg-span">진행중인 미션 목록 및 진척도</span>
                         </div>
                         <div className="mission-msg">
-                            <span className="mission-msg-span">응원메시지 span 입니다</span>
+                            <span className="mission-msg-span">응원메시지입니다</span>
                         </div>
 
                         {/* 카테고리와 막대 그래프 */}
@@ -178,7 +210,7 @@ const styles = {
         marginBottom: "20px",
     },
     category: {
-        flexBasis: "100px",
+        flexBasis: "60px",
         textAlign: "left",
     },
     barContainer: {
