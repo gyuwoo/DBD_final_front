@@ -17,7 +17,6 @@ const ProfPresenter = ({
     expandedStudentId,
     toggleStudentDetails,
     onAdjustSubmit,
-    onBatchSubmit,
     studentBarChartData,
 }) => {
     const [adjustedValues, setAdjustedValues] = useState({});
@@ -90,63 +89,21 @@ const ProfPresenter = ({
     };
 
     const handleInputChange = (studentId, index, value) => {
-        // 실시간 입력값 업데이트
         setAdjustedValues((prev) => ({
             ...prev,
             [studentId]: {
                 ...prev[studentId],
-                [index]: {
-                    ...prev[studentId]?.[index],
-                    hold_figure: value,
-                    error: value % 5 !== 0 ? "5단위로 입력해주세요." : null,
-                },
+                [index]: value,
             },
         }));
     };
-    
+
     const handleAdjustSubmit = () => {
-        if (expandedStudentId) {
-            const selectedStudent = tableData.find(
-                (student) => student.studentId === expandedStudentId
-            );
-    
-            // 조정된 데이터를 가져오기
-            const compe = selectedStudent.holdList.map((holdItem, index) => {
-                const adjustedValue =
-                    adjustedValues[expandedStudentId]?.[index]?.hold_figure || holdItem.hold_figure;
-                const error =
-                    adjustedValues[expandedStudentId]?.[index]?.error || null;
-    
-                return {
-                    compe_name: holdItem.compe_name,
-                    hold_figure: adjustedValue,
-                    mis_num: holdItem.mis_num,
-                    error, // 에러 메시지 포함
-                };
-            });
-    
-            // 총합 계산
-            const total = compe.reduce((sum, item) => sum + (item.hold_figure || 0), 0);
-    
-            // 유효성 검사
-            const hasError = compe.some((item) => item.error);
-            if (hasError) {
-                alert("입력값이 5단위인지 확인해주세요.");
-                return;
-            }
-    
-            if (total > 60) {
-                alert("조정 수치의 총합은 60을 넘을 수 없습니다.");
-                return;
-            }
-    
-            // 서버로 데이터 전송
-            onAdjustSubmit(expandedStudentId, compe);
+        if (expandedStudentId && adjustedValues[expandedStudentId]) {
+            onAdjustSubmit(expandedStudentId, adjustedValues[expandedStudentId]); // 서버 전송
         }
     };
-    
 
-    
     return (
         <div className="prof-main">
             <ProfHeader professorName={professorName} />
@@ -198,9 +155,7 @@ const ProfPresenter = ({
 
             <div className="table-student">
                 <h3>미션 보류 학생 목록</h3>
-                <button className="batch-process" onClick={onBatchSubmit}>
-                    일괄 처리
-                </button>
+                <button className="batch-process">일괄 처리</button>
                 <table className="student-table">
                     <thead>
                         <tr>
@@ -216,15 +171,19 @@ const ProfPresenter = ({
                             <React.Fragment key={index}>
                                 <tr
                                     className={`student-row ${
-                                        expandedStudentId === student.studentId ? "expanded" : ""
+                                        expandedStudentId === student.studentId
+                                            ? "expanded"
+                                            : ""
                                     }`}
-                                    onClick={() => toggleStudentDetails(student.studentId)}
+                                    onClick={() =>
+                                        toggleStudentDetails(student.studentId)
+                                    }
                                 >
                                     <td>{student.grade}</td>
                                     <td>{student.studentId}</td>
                                     <td>{student.name}</td>
-                                    <td>{student.deferDate}</td> {/* 보류 날짜 */}
-                                    <td>{student.targetScore}</td> {/* 희망 역량 수치 */}
+                                    <td>{student.deferDate || "-"}</td>
+                                    <td>{student.targetScore || "-"}</td>
                                 </tr>
                                 {expandedStudentId === student.studentId && (
                                     <tr className="expanded-row">
@@ -240,26 +199,31 @@ const ProfPresenter = ({
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {student.holdList.map((holdItem, idx) => (
-                                                            <tr key={idx}>
-                                                            <td>{holdItem.compe_name || "-"}</td>
-                                                            <td>{holdItem.compe_figure || "0"}</td>
-                                                            <td>
-                                                                <input
-                                                                type="number"
-                                                                defaultValue={holdItem.hold_figure || 0}
-                                                                min={0}
-                                                                onChange={(e) =>
-                                                                    handleInputChange(
-                                                                    student.studentId,
-                                                                    idx,
-                                                                    parseInt(e.target.value, 10)
-                                                                    )
-                                                                }
-                                                                />
-                                                            </td>
-                                                            </tr>
-                                                        ))}
+                                                        {student.holdList.map(
+                                                            (holdItem, idx) => (
+                                                                <tr key={idx}>
+                                                                    <td>{holdItem.compe_name || "-"}</td>
+                                                                    <td>{holdItem.hold_figure || "0"}</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="number"
+                                                                            defaultValue={holdItem.compe_figure || 0}
+                                                                            min={0}
+                                                                            onChange={(e) =>
+                                                                                handleInputChange(
+                                                                                    student.studentId,
+                                                                                    idx,
+                                                                                    parseInt(
+                                                                                        e.target.value,
+                                                                                        10
+                                                                                    )
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        )}
                                                     </tbody>
                                                 </table>
                                                 <button
@@ -275,7 +239,6 @@ const ProfPresenter = ({
                             </React.Fragment>
                         ))}
                     </tbody>
-
                 </table>
             </div>
 

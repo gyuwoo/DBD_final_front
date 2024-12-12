@@ -85,6 +85,7 @@
     margin-bottom: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    z-index: 100; /* 버튼이 다른 요소 위에 표시되도록 설정 */
 }
 
 /* 드롭다운된 학생 상세 정보 */
