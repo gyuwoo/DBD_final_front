@@ -1,36 +1,35 @@
 import React from "react";
-import './Program.css';
+import './StdProgram.css';
 import { useNavigate } from "react-router-dom";
 
-// 이미지 파일 경로를 동적으로 가져오기 위한 함수
 const getProgramImage = (programId) => {
     try {
-        // 프로그램 ID를 기반으로 이미지 파일 경로 반환
-        return require(`../../../../../assets/program/${programId}.png`);
+        return require(`../../../../../assets/program/${programId}.png`)
     } catch (error) {
-        // 이미지가 없는 경우 기본 이미지를 반환
         return;
     }
 };
 
-export const ProgramList = ({
-    programs
+export const StdProgram = ({
+    programs,
+    recommendProgram
 }) => {
+
     const navigate = useNavigate();
 
     return (
         // 메인 프로그램 리스트
         <div className="program-list-wrapper">
-            {programList?.map((program) => (
+            {recommendProgram?.map((program) => (
                 <div className="program-card" key={program.id} onClick={() => navigate('/detail')}>
                 {/* 상태 표시 */}
-                <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>
+                {/* <div className={`program-state ${program.state === "모집중" ? "active" : ""}`}>
                     {program.state}
-                </div>
+                </div> */}
 
                 {/* 이미지 */}
                 <div className="program-img">
-                    <img src={program.poster} alt={program.program_name} />
+                    <img src={getProgramImage(program.id)} alt={program.program_name} />
                 </div>
 
                 {/* 정보 */}

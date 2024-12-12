@@ -6,3 +6,6 @@
 
 export { default as Main } from './Common/Main';
 export { default as Prof } from './Common/ProfessorMain'
+export { default as Std } from './Common/StudentMain'
+export { default as My } from './Common/Mypage'
+export { default as Detail } from './Common/Detail'
