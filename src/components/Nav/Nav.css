@@ -1,0 +1,23 @@
+.nav-container {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 2px 2px lightgray;
+
+    overflow: hidden;
+}
+
+.nav-container .nav-logo{
+    margin-left: 5%;
+}
+
+.nav-container .nav-span {
+    display: flex;
+    gap: 2rem;
+    margin-left: 40%;
+}
+
+.nav-container .nav-span h4 {
+    cursor: pointer;
+}

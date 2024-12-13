@@ -1,0 +1,132 @@
+/* 전체 레이아웃 */
+.prof-main {
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+}
+
+.charts-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px; /* 전체 레이아웃 여백 */
+    margin-top: 100px;
+}
+
+.charts-left {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    gap: 20px; /* 두 차트 간의 간격 */
+    width: 420px; /* 좌측 영역 너비 */
+    margin-left: 210px;
+}
+
+.chart-right {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 0px 20px;
+    width: 380px; /* 우측 영역 너비 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-block {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 0px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 260px; /* 동일한 높이 설정 */
+}
+
+.table-student {
+    background-color: #ffffff;
+    margin: 5px 230px;
+    width: 824px;
+    height: auto;
+    border-radius: 8px;
+    padding: 0px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 테이블 */
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'NanumGothic', sans-serif;
+    margin-bottom: 20px;
+}
+
+.student-table th,
+.student-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333333;
+}
+
+.student-table th {
+    font-weight: 600;
+    text-align: center;
+} 
+
+/* 버튼 스타일 */
+.batch-process  {
+    position: absolute; /* 버튼이 테이블의 오른쪽 상단에 고정되도록 설정 */
+    top: 15px; /* 테이블 상단에서의 거리 */
+    right: 20px; /* 테이블 오른쪽에서의 거리 */
+    background-color: #D01C25;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 드롭다운된 학생 상세 정보 */
+.expanded-row {
+    background-color: #f9f9f9;
+}
+
+.student-details {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.details-table th,
+.details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.details-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    text-align: center;
+}
+
+.adjust-button {
+    position: relative; /* 테이블 위치와 충돌하지 않도록 상대 위치로 설정 */
+    background-color: #D01C25;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

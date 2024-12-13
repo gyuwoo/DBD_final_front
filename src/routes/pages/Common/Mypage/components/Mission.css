@@ -1,0 +1,341 @@
+/* 전체 컨테이너 스타일 */
+.mission-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.mission-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 30%;
+}
+
+/* 섹션 제목 스타일 */
+.section-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 차트 섹션 스타일 */
+.chart-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 차트와 테이블 높이 정렬 */
+    margin-bottom: 20px;
+}
+
+/* 차트 컨테이너 */
+.chart-container {
+    flex: 1;
+    height: 300px; /* 테이블 높이에 맞춰 고정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    padding-right: 10px;
+}
+
+.hold-info-table{
+    background-color: #D9D9D9;
+    filter: blur(5px);
+}
+
+.total-goal{
+    color: #D01C25;
+}
+
+.centered-message {
+    position: absolute;
+    font-size: 1.1rem;
+    top: 138%;
+    left: 66%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* 테이블 공통 스타일 */
+.info-table, .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.info-table th, .history-table th {
+    background-color: #f5f5f5;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.info-table td, .history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* 이전 미션 섹션 스타일 */
+.mission-history-section {
+    margin-top: 20px;
+}
+
+.history-table th {
+    background-color: #ffe6e6;
+}
+
+.mission-btn button{
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 12px;
+    color: #f5f5f5;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.ok-btn {
+    background-color: #4CAF70;
+}
+
+.hold-btn {
+    background-color: #FF8706;
+}
+
+.no-btn {
+    background-color: #D01C25;
+}
+
+.hold-ok-btn {
+    background-color: #D9D9D9;
+}
+
+.hold-hold-btn {
+    background-color: #D9D9D9;
+}
+
+.hold-no-btn {
+    background-color: #D9D9D9;
+}
+
+/* 팝업창 오버레이 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* 어두운 배경 추가 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 팝업창 내용 */
+.popup-content {
+    background: #f9f9f9;
+    width: 600px;
+    
+    position: relative;
+}
+
+/* 팝업창 헤더 */
+.popup-header {
+    display: flex;
+    
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding: 15px;
+    background-color: #125ACE;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin-left: 38%;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #d9534f; /* 닫기 버튼 hover 효과 */
+}
+
+/* 설명 텍스트 */
+.popup-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    margin-left: 3%;
+}
+
+/* 폼 스타일 */
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    
+}
+
+.form-row label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    flex: 2;
+}
+
+.form-row span {
+    flex: 1;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+}
+
+.form-row input {
+    width: 70px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.form-row input:focus {
+    border-color: #007bff;
+}
+
+/* 팝업 푸터 */
+.popup-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.popup-footer span {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.submit-btn {
+    padding: 12px 25px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #0056b3;
+}
+
+/* 팝업 열릴 때 페이드 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal-content h3 {
+    background-color: #0054a6;
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.modal-table-th, .modal-table-td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-table-th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-table-tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.modal-close-btn {
+    display: block;
+    margin: 20px auto 0;
+    background-color: #0054a6;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover {
+    background-color: #00408a;
+}
+

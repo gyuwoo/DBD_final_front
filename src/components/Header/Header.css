@@ -1,0 +1,103 @@
+header {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    background-color: #D01C25;
+    padding: 0;
+    margin: 0;
+}
+
+header .logo {
+    width: 100%;
+}
+
+header .logo img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+header .signin-list {
+    display: flex;
+    gap: 0.5rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-right: 5rem;
+    margin-bottom: 1rem;
+}
+
+header .signin-list li {
+    position: relative;
+}
+
+header .signin-list li:first-child a {
+    color: blue;
+}
+
+header .signin-list li:nth-child(2) a {
+    color: green;
+}
+
+header .signin-list li:last-child a {
+    color: red;
+}
+
+header .signin-list li::after {
+    content: '|';
+    color: lightgray;
+    margin-left: 0.5rem;
+}
+
+header .signin-list li:last-child:after {
+    display: none;
+}
+
+
+header .student-info-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-right: 5rem;
+    margin-bottom: 1rem;
+}
+
+header .student-info-list .student-info {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+header .student-info-list .student-info:first-child::after {
+    content: '|';
+    color: lightgray;
+    margin-left: 0.5rem;
+}
+
+header .student-info-list .signout-button {
+    cursor: pointer;
+}
+
+.logout-div {
+    display: flex;
+    justify-content: end;
+    margin-right: 15%;
+}
+
+.logout-btn {
+    padding: 10px;
+    background-color: #D01C25;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 3px;
+}

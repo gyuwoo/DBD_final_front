@@ -1,0 +1,75 @@
+.program-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.program-list-wrapper {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    scroll-behavior: smooth;
+}
+
+.program-card {
+width: 260px;
+border: 1px solid #ddd;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+/* 상태 표시 */
+.program-state {
+background-color: #ccc;
+color: white;
+font-weight: bold;
+text-align: center;
+padding: 5px;
+}
+
+.program-state.active {
+background-color: #4caf50; /* 모집중일 때 초록색 */
+}
+
+.program-state {
+    background-color: #D01C25; /* 마감임박일 때 빨간색 */
+}
+
+.program-img {
+    height: 140px;
+}
+
+.program-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 영역에 꽉 차도록 설정 */
+    object-position: top; /* 이미지 상단이 잘리지 않도록 설정 */
+}
+
+
+.program-info {
+padding: 10px;
+}
+
+.program-title {
+font-size: 16px;
+font-weight: bold;
+}
+
+.progress-hours,
+.apli-period {
+font-size: 14px;
+margin-bottom: 5px;
+}
+
+.accept-status {
+color: #AB001E;
+padding: 10px;
+text-align: center;
+}
+
+.accept-status .accept-status-strong{
+    font-size: 20px;
+    }
