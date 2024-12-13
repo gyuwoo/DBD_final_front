@@ -16,7 +16,7 @@ import './StdShowSpot.css';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const StdShowSpot = ({ studentData }) => {
-    const { compeUp, mySeedRank, programStats, acceptMission, recommendProgram, name } = studentData;
+    const { compeUp, mySeedRank, programStats, acceptMission, selAccept, recommendProgram, name } = studentData;
 
 
     // 데이터 필터링: compe_up > 0인 항목만 포함
@@ -97,14 +97,14 @@ export const StdShowSpot = ({ studentData }) => {
                         <p>랭킹: <strong className="info-strong">{mySeedRank[0]?.rank || "N/A"}</strong>등 (상위 {mySeedRank[0]?.percent}%)</p>
 
                         <h3>📌 프로그램 현황(누적)</h3>
-                        <p>신청/이수/미이수 : <strong>{programStats[0].appli} / {programStats[0].isu} / {programStats[0].miisu}</strong></p>
+                        <p>신청/이수/미이수 : <strong>{programStats[0].appli || 0} / {programStats[0].isu || 0} / {programStats[0].miisu || 0}</strong></p>
                     </div>
 
                     {/* 현재 진행 중인 미션 */}
-                    {!acceptMission && (
+                    {selAccept?.[0]?.accept !== "수락" && (
                         <h3 className="centered-msg">현재 진행중인 미션이 없습니다.</h3>
                     )}
-                    <div className={`info-box-2 ${acceptMission ? "" : "info-box-blur" }`}>
+                    <div className={`info-box-2 ${selAccept?.[0]?.accept === "수락" ? "" : "info-box-blur" }`}>
                         <h3 onClick={()=> {navigate('/mypage')}}>📌 진행중 미션 목록 및 진척도</h3>
                         <p>"여기까지 오느라 너무 고생했어!!!"</p>
                         <div className="info-categoty">

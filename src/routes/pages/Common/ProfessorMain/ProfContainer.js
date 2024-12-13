@@ -42,31 +42,31 @@ const ProfContainer = () => {
                     differences: guideCompeDifferences,
                 });
 
-               const studentData = mainData.holdStd.map((student) => {
-    const studentMissions = mainData.holdMission.filter(
-        (mission) => String(mission.student_std_id) === String(student.std_id)
-    );
-
-    return {
-        studentId: student.std_id,
-        name: student.name,
-        grade: student.grade,
-        deferDate: studentMissions[0]?.hold_date || "-", // 첫 번째 미션 날짜
-        targetScore: studentMissions.reduce(
-            (sum, mission) => sum + (mission.hold_figure || 0),
-            0
-        ), // hold_figure 합산
-        holdList: studentMissions.map((mission) => ({
-            compe_name: mission.compe_name || "-",
-            hold_figure: mission.hold_figure || 0,
-            compe_figure: mission.compe_figure || 0,
-            mis_num: mission.mission_mis_num || null,
-        })),
-    };
-});
-
-
+                const studentData = (mainData.holdStd || []).map((student) => {
+                    const studentMissions = (mainData.holdMission || []).filter(
+                        (mission) => String(mission.student_std_id) === String(student.std_id)
+                    );
                 
+                    return {
+                        studentId: student.std_id,
+                        name: student.name,
+                        grade: student.grade,
+                        deferDate: studentMissions[0]?.hold_date || "-", 
+                        targetScore: studentMissions.reduce(
+                            (sum, mission) => sum + (mission.hold_figure || 0),
+                            0
+                        ),
+                        holdList: studentMissions.map((mission) => ({
+                            compe_name: mission.compe_name || "-",
+                            hold_figure: mission.hold_figure || 0,
+                            compe_figure: mission.compe_figure || 0,
+                            mis_num: mission.mission_mis_num || null,
+                        })),
+                    };
+                });
+                        
+                console.log(mainData);
+                console.log("data : ", rawData, guideRawData, tableData)
                 console.log("Processed Student Data:", studentData);
                 
                 
@@ -125,16 +125,20 @@ const ProfContainer = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify(requestBody),
             });
 
             if (response.ok) {
                 console.log("일괄 처리 성공:", await response.json());
                 alert("일괄 처리가 완료되었습니다!");
+                window.location.reload();
             } else {
                 console.error("일괄 처리 실패:", response.status);
                 alert("일괄 처리에 실패했습니다.");
+                window.location.reload();
             }
+            
         } catch (error) {
             console.error("일괄 처리 중 오류 발생:", error);
             alert("일괄 처리 중 오류가 발생했습니다.");
@@ -146,6 +150,7 @@ const ProfContainer = () => {
             const response = await fetch("http://localhost:4000/profacc", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify({ std_id: studentId }),
             });
 
@@ -181,15 +186,18 @@ const ProfContainer = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify(requestBody),
             });
 
             if (response.ok) {
                 console.log("조정 데이터 전송 성공:", await response.json());
                 alert("조정이 완료되었습니다!");
+                window.location.reload();
             } else {
                 console.error("조정 데이터 전송 실패:", response.status);
                 alert("조정 데이터 전송에 실패했습니다.");
+                window.location.reload();
             }
         } catch (error) {
             console.error("조정 데이터 전송 중 오류 발생:", error);
@@ -206,9 +214,11 @@ const ProfContainer = () => {
             await fetchStudentBarChartData(studentId);
         }
     };
-    if (!rawData || !guideRawData || !pieData || tableData.length === 0) {
-        return <div>Loading...</div>;
+    if (!rawData || !guideRawData || !pieData) {
+        return <div>데이터를 로드하는 중입니다...</div>;
     }
+    
+    
 
     return (
         <ProfPresenter

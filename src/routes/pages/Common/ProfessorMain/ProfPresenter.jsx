@@ -196,23 +196,24 @@ const ProfPresenter = ({
             </div>
         </div>
 
-            <div className="table-student">
-                <h3>미션 보류 학생 목록</h3>
-                <button className="batch-process" onClick={onBatchSubmit}>
-                    일괄 처리
-                </button>
-                <table className="student-table">
-                    <thead>
-                        <tr>
-                            <th>학년</th>
-                            <th>학번</th>
-                            <th>학생 이름</th>
-                            <th>보류 날짜</th>
-                            <th>희망 역량 수치</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData?.map((student, index) => (
+        <div className="table-student">
+            <h3>미션 보류 학생 목록</h3>
+            <button className="batch-process" onClick={onBatchSubmit}>
+                일괄 처리
+            </button>
+            <table className="student-table">
+                <thead>
+                    <tr>
+                        <th>학년</th>
+                        <th>학번</th>
+                        <th>학생 이름</th>
+                        <th>보류 날짜</th>
+                        <th>희망 역량 수치</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableData?.length > 0 ? (
+                        tableData.map((student, index) => (
                             <React.Fragment key={index}>
                                 <tr
                                     className={`student-row ${
@@ -223,8 +224,8 @@ const ProfPresenter = ({
                                     <td>{student.grade}</td>
                                     <td>{student.studentId}</td>
                                     <td>{student.name}</td>
-                                    <td>{student.deferDate}</td> {/* 보류 날짜 */}
-                                    <td>{student.targetScore}</td> {/* 희망 역량 수치 */}
+                                    <td>{student.deferDate || "-"}</td> {/* 보류 날짜 */}
+                                    <td>{student.targetScore || "0"}</td> {/* 희망 역량 수치 */}
                                 </tr>
                                 {expandedStudentId === student.studentId && (
                                     <tr className="expanded-row">
@@ -242,22 +243,22 @@ const ProfPresenter = ({
                                                     <tbody>
                                                         {student.holdList.map((holdItem, idx) => (
                                                             <tr key={idx}>
-                                                            <td>{holdItem.compe_name || "-"}</td>
-                                                            <td>{holdItem.compe_figure || "0"}</td>
-                                                            <td>
-                                                                <input
-                                                                type="number"
-                                                                defaultValue={holdItem.hold_figure || 0}
-                                                                min={0}
-                                                                onChange={(e) =>
-                                                                    handleInputChange(
-                                                                    student.studentId,
-                                                                    idx,
-                                                                    parseInt(e.target.value, 10)
-                                                                    )
-                                                                }
-                                                                />
-                                                            </td>
+                                                                <td>{holdItem.compe_name || "-"}</td>
+                                                                <td>{holdItem.compe_figure || "0"}</td>
+                                                                <td>
+                                                                    <input
+                                                                        type="number"
+                                                                        defaultValue={holdItem.hold_figure || 0}
+                                                                        min={0}
+                                                                        onChange={(e) =>
+                                                                            handleInputChange(
+                                                                                student.studentId,
+                                                                                idx,
+                                                                                parseInt(e.target.value, 10)
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -273,11 +274,18 @@ const ProfPresenter = ({
                                     </tr>
                                 )}
                             </React.Fragment>
-                        ))}
-                    </tbody>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5" style={{ textAlign: "center" }}>
+                                현재 보류 학생 목록이 없습니다.
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
 
-                </table>
-            </div>
 
 
             <Footer />

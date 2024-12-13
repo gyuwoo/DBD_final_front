@@ -22,13 +22,14 @@ ChartJS.register(
 );
 
 export const Mission = ({ missionData }) => {
-  const { mission, stdCompe, stdCompeUp, pastMission, missionCompe } =
-    missionData;
+  const { mission, stdCompe, stdCompeUp, pastMission, missionCompe } = missionData;
   const [popupCompeData, setPopupCompeData] = useState([]); //보류신청 시 수치조정 팝업에 뜨는 데이터
-  const [totalScore, setTotalScore] = useState(60); // 보류신청 시 역량 수치 총합합
+  const [totalScore, setTotalScore] = useState(60); // 보류신청 시 역량 수치 총합
   const [adjustedScores, setAdjustedScores] = useState(stdCompe.map(() => 10)); // 희망 수치 배열
   const [missionPrograms, setMissionPrograms] = useState([]); // 이전 미션 클릭 시 나오는 상세 정보
-  const [showModal, setShowModal] = useState(false); // 상세 정보 모달 띄움 안띄움움
+  const [showModal, setShowModal] = useState(false); // 상세 정보 모달 띄움 안띄움
+  const [status, setStatus] = useState(mission[0].accept); // 현재 상태: "보류", "수락", "거절"
+
 
   const getHold = async () => {
     try {
@@ -162,16 +163,23 @@ export const Mission = ({ missionData }) => {
     setPopupVisible(false);
   };
 
-  const handleMissionStatus = (type, misNum) => {
+
+  // 수락, 거절 버튼 함수
+  const handleMissionStatus = async (type, misNum) => {
     const confirmMessage =
       type === "거절"
         ? "정말로 미션을 거절하시겠습니까?"
         : "정말로 미션을 수락하시겠습니까?";
-
+  
     const userConfirmed = window.confirm(confirmMessage);
-
-    if (userConfirmed) {
-      fetch("http://localhost:4000/mission", {
+  
+    if (!userConfirmed) {
+      alert("취소되었습니다.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:4000/mission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -181,29 +189,24 @@ export const Mission = ({ missionData }) => {
           type: type, // 수락 또는 거절 타입
           mis_num: misNum, // 미션 번호
         }),
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("서버 응답에 실패했습니다.");
-          }
-        })
-        .then((data) => {
-          console.log("미션 상태 업데이트", data);
-          alert(`미션이 ${type}되었습니다.`);
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error("미션 상태 에러러:", error);
-          alert(`미션 ${type} 중 오류가 발생했습니다.`);
-          window.location.reload();
-        });
-    } else {
-      alert(`취소되었습니다.`);
+      });
+  
+      if (!response.ok) {
+        throw new Error(`서버 응답 실패: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("미션 상태 업데이트", data);
+  
+      alert(`미션이 ${type}되었습니다.`);
+      window.location.reload();
+    } catch (error) {
+      console.error("미션 상태 변경 중 오류 발생:", error);
+      alert(`미션 ${type} 중 오류가 발생했습니다.`);
       window.location.reload();
     }
   };
+  
 
   const chartData = {
     labels: stdCompe.map((compe) => compe.compe_name),
@@ -327,7 +330,9 @@ export const Mission = ({ missionData }) => {
             </tr>
           </thead>
           {mission[0].accept === "보류" ? (
-            <></>
+            <>
+            
+            </>
           ) : (
             <>
               <tbody>
@@ -336,10 +341,9 @@ export const Mission = ({ missionData }) => {
                     <td>{compe.compe_name}</td>
                     <td>{compe.compe_figure}</td>
                     <td>
-                      {compe.progress_figure || "수락 대기중"} /{" "}
-                      {compe.compe_figure}
+                      {compe.progress_figure} / {compe.compe_figure}
                     </td>
-                    <td>대기</td>
+                    <td>{mission[0].accept}</td>
                   </tr>
                 ))}
               </tbody>
