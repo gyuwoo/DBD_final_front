@@ -22,7 +22,7 @@ ChartJS.register(
 );
 
 export const Mission = ({ missionData }) => {
-  const { mission, stdCompe, stdCompeUp, pastMission, missionCompe } = missionData;
+  const { mission, stdCompe, stdCompeUp, pastMission, missionCompe, hold } = missionData;
   const [popupCompeData, setPopupCompeData] = useState([]); //보류신청 시 수치조정 팝업에 뜨는 데이터
   const [totalScore, setTotalScore] = useState(60); // 보류신청 시 역량 수치 총합
   const [adjustedScores, setAdjustedScores] = useState(stdCompe.map(() => 10)); // 희망 수치 배열
@@ -282,6 +282,24 @@ export const Mission = ({ missionData }) => {
               <button className="hold-no-btn">거절</button>
             </div>
           </>
+        ) : hold === "보류한적 있음" ? (
+          <>
+            <div className="mission-btn">
+              <span>미션 상태</span>
+              <button
+                className="ok-btn"
+                onClick={() => handleMissionStatus("수락", mission[0].mis_num)}
+              >
+                수락
+              </button>
+              <button
+                className="no-btn"
+                onClick={() => handleMissionStatus("거절", mission[0].mis_num)}
+              >
+                거절
+              </button>
+            </div>
+          </>
         ) : (
           <>
             <div className="mission-btn">
@@ -292,11 +310,9 @@ export const Mission = ({ missionData }) => {
               >
                 수락
               </button>
-
               <button className="hold-btn" onClick={openPopup}>
                 보류
               </button>
-
               <button
                 className="no-btn"
                 onClick={() => handleMissionStatus("거절", mission[0].mis_num)}
@@ -306,6 +322,9 @@ export const Mission = ({ missionData }) => {
             </div>
           </>
         )}
+
+
+
       </div>
       <div className="chart-section">
         <div className="chart-container">

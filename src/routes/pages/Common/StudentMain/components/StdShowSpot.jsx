@@ -79,6 +79,7 @@ export const StdShowSpot = ({ studentData }) => {
 
     return (
         <div className="show-spot">
+            <button onClick={test}>ssss</button>
             <div className="std-spot-container">
                 {/* 성장 그래프 */}
                 <div className="growth-chart">
