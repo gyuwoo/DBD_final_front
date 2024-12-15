@@ -85,13 +85,13 @@ export const ShowSpot = ({
                         <div className="chart-box">
                             <PieChart 
                                 data={data1}
-                                title="미션 이수율 (2024년 1학기)"
+                                title="미션 이수율 (2024년 2학기)"
                             />
                         </div>
                         <div className="chart-box">
                             <PieChart 
                                 data={data2}
-                                title="현재 미션 수락률 (2024년 2학기)"
+                                title="현재 미션 수락률 (2025년 1학기)"
                             />
                         </div>
 
@@ -100,7 +100,7 @@ export const ShowSpot = ({
                             <div className="seed-table">
                                 <h3>
                                     <img src={Seed} alt="" />
-                                    씨앗포인트 Rank (2024년 1학기)
+                                    씨앗포인트 Rank (2024년 2학기)
                                 </h3>
                                 <table>
                                     <thead>

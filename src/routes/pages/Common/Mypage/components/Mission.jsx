@@ -103,6 +103,8 @@ export const Mission = ({ missionData }) => {
 
     if (newTotalScore > 60) {
       alert("총 수치는 60점을 초과할 수 없습니다.");
+
+      e.target.value = adjustedScores[index]; 
       return;
     }
 

@@ -79,7 +79,6 @@ export const StdShowSpot = ({ studentData }) => {
 
     return (
         <div className="show-spot">
-            <button onClick={test}>ssss</button>
             <div className="std-spot-container">
                 {/* 성장 그래프 */}
                 <div className="growth-chart">
@@ -107,7 +106,7 @@ export const StdShowSpot = ({ studentData }) => {
                     )}
                     <div className={`info-box-2 ${selAccept?.[0]?.accept === "수락" ? "" : "info-box-blur" }`}>
                         <h3 onClick={()=> {navigate('/mypage')}}>📌 진행중 미션 목록 및 진척도</h3>
-                        <p>"여기까지 오느라 너무 고생했어!!!"</p>
+                        <p>"목표를 향해 열심히 달려보자!!"</p>
                         <div className="info-categoty">
                             <span>카테고리</span>
                             <span>현재</span>
